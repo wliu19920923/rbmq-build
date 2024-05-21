@@ -3,7 +3,7 @@ version: '3'
 services:
 
   rabbitmq-node1:
-    image: rabbitmq:3.9.22-management
+    image: rabbitmq:3.13.0-management
     container_name: rabbitmq-node1
     hostname: rabbitmq-node1
     # command: rabbitmq-server --erlang-cookie=97c78681-3394-208f-9d04-b86cb68f9c60
@@ -12,7 +12,7 @@ services:
       - "5672:5672"
       - "15672:15672"
     volumes:
-      - ./rabbitmq_delayed_message_exchange-3.9.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.9.0.ez
+      - ./rabbitmq_delayed_message_exchange-3.13.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez
       - ./.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
       - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     environment:
@@ -26,7 +26,7 @@ services:
       - rabbitmq-network
       
   rabbitmq-node2:
-    image: rabbitmq:3.9.22-management
+    image: rabbitmq:3.13.0-management
     container_name: rabbitmq-node2
     hostname: rabbitmq-node2
     entrypoint: /bin/bash -c "rabbitmq-server rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq-node2.pid && rabbitmqctl join_cluster rabbit@rabbitmq-node1"
@@ -35,7 +35,7 @@ services:
       - "5673:5672"
       - "15673:15672"
     volumes:
-      - ./rabbitmq_delayed_message_exchange-3.9.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.9.0.ez
+      - ./rabbitmq_delayed_message_exchange-3.13.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez
       - ./.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
       - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     environment:
@@ -51,7 +51,7 @@ services:
       - rabbitmq-node1
       
   rabbitmq-node3:
-    image: rabbitmq:3.9.22-management
+    image: rabbitmq:3.13.0-management
     container_name: rabbitmq-node3
     hostname: rabbitmq-node3
     # command: rabbitmq-server --erlang-cookie=97c78681-3394-208f-9d04-b86cb68f9c60
@@ -60,7 +60,7 @@ services:
       - "5674:5672"
       - "15674:15672"
     volumes:
-      - ./rabbitmq_delayed_message_exchange-3.9.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.9.0.ez
+      - ./rabbitmq_delayed_message_exchange-3.13.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez
       - ./.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
       - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
     environment:
