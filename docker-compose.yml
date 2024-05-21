@@ -3,7 +3,7 @@ version: '3'
 services:
 
   rabbitmq-node1:
-    image: rabbitmq:3.13.0-management
+    image: rabbitmq:3.13.2-management
     container_name: rabbitmq-node1
     hostname: rabbitmq-node1
     # command: rabbitmq-server --erlang-cookie=97c78681-3394-208f-9d04-b86cb68f9c60
@@ -26,7 +26,7 @@ services:
       - rabbitmq-network
       
   rabbitmq-node2:
-    image: rabbitmq:3.13.0-management
+    image: rabbitmq:3.13.2-management
     container_name: rabbitmq-node2
     hostname: rabbitmq-node2
     entrypoint: /bin/bash -c "rabbitmq-server rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq-node2.pid && rabbitmqctl join_cluster rabbit@rabbitmq-node1"
@@ -51,7 +51,7 @@ services:
       - rabbitmq-node1
       
   rabbitmq-node3:
-    image: rabbitmq:3.13.0-management
+    image: rabbitmq:3.13.2-management
     container_name: rabbitmq-node3
     hostname: rabbitmq-node3
     # command: rabbitmq-server --erlang-cookie=97c78681-3394-208f-9d04-b86cb68f9c60
