@@ -1,5 +1,7 @@
 version: '3'
+
 services:
+
   rabbitmq-node1:
     image: rabbitmq:3.9.22-management
     container_name: rabbitmq-node1
@@ -16,12 +18,13 @@ services:
     environment:
       - RABBITMQ_DELAYED_MESSAGE_ENABLED=true
       - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=123456
+      - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
       - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
       - RABBITMQ_NODENAME=rabbit@rabbitmq-node1  # 节点名称
       # - RABBITMQ_USE_LONGNAME=true #它用于告诉 RabbitMQ 是否使用长节点名称。
     networks:
       - rabbitmq-network
+      
   rabbitmq-node2:
     image: rabbitmq:3.9.22-management
     container_name: rabbitmq-node2
@@ -38,7 +41,7 @@ services:
     environment:
       - RABBITMQ_DELAYED_MESSAGE_ENABLED=true
       - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=123456
+      - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
       - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
       - RABBITMQ_NODENAME=rabbit@rabbitmq-node2  # 节点名称
       # - RABBITMQ_USE_LONGNAME=true #它用于告诉 RabbitMQ 是否使用长节点名称。
@@ -46,6 +49,7 @@ services:
       - rabbitmq-network
     depends_on:
       - rabbitmq-node1
+      
   rabbitmq-node3:
     image: rabbitmq:3.9.22-management
     container_name: rabbitmq-node3
@@ -62,7 +66,7 @@ services:
     environment:
       - RABBITMQ_DELAYED_MESSAGE_ENABLED=true
       - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=123456
+      - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
       - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
 #被废弃了  - RABBITMQ_ERLANG_COOKIE=97c78681-3394-208f-9d04-b86cb68f9c60 # 为了确保集群节点通信，需要设置相同的 erlang-cookie
       - RABBITMQ_NODENAME=rabbit@rabbitmq-node3  # 节点名称
