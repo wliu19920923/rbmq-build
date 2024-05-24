@@ -6,7 +6,6 @@ services:
     image: rabbitmq:3.13.2-management
     container_name: rabbitmq-node1
     hostname: rabbitmq-node1
-    # command: rabbitmq-server --erlang-cookie=97c78681-3394-208f-9d04-b86cb68f9c60
     entrypoint: /bin/bash -c "rabbitmq-server rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq-node1.pid"
     ports:
       - "5672:5672"
@@ -20,61 +19,56 @@ services:
       - RABBITMQ_DEFAULT_USER=admin
       - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
       - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
-      - RABBITMQ_NODENAME=rabbit@rabbitmq-node1  # 节点名称
-      # - RABBITMQ_USE_LONGNAME=true #它用于告诉 RabbitMQ 是否使用长节点名称。
+      - RABBITMQ_NODENAME=rabbit@rabbitmq-node1
     networks:
       - rabbitmq-network
       
-  rabbitmq-node2:
-    image: rabbitmq:3.13.2-management
-    container_name: rabbitmq-node2
-    hostname: rabbitmq-node2
-    entrypoint: /bin/bash -c "rabbitmq-server rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq-node2.pid && rabbitmqctl join_cluster rabbit@rabbitmq-node1"
-    # command: rabbitmq-server --erlang-cookie=97c78681-3394-208f-9d04-b86cb68f9c60
-    ports:
-      - "5673:5672"
-      - "15673:15672"
-    volumes:
-      - ./rabbitmq_delayed_message_exchange-3.13.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez
-      - ./.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
-      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-    environment:
-      - RABBITMQ_DELAYED_MESSAGE_ENABLED=true
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
-      - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
-      - RABBITMQ_NODENAME=rabbit@rabbitmq-node2  # 节点名称
-      # - RABBITMQ_USE_LONGNAME=true #它用于告诉 RabbitMQ 是否使用长节点名称。
-    networks:
-      - rabbitmq-network
-    depends_on:
-      - rabbitmq-node1
+  # rabbitmq-node2:
+  #   image: rabbitmq:3.13.2-management
+  #   container_name: rabbitmq-node2
+  #   hostname: rabbitmq-node2
+  #   entrypoint: /bin/bash -c "rabbitmq-server rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq-node2.pid && rabbitmqctl join_cluster rabbit@rabbitmq-node1"
+  #   ports:
+  #     - "5673:5672"
+  #     - "15673:15672"
+  #   volumes:
+  #     - ./rabbitmq_delayed_message_exchange-3.13.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez
+  #     - ./.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
+  #     - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+  #   environment:
+  #     - RABBITMQ_DELAYED_MESSAGE_ENABLED=true
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
+  #     - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
+  #     - RABBITMQ_NODENAME=rabbit@rabbitmq-node2
+  #   networks:
+  #     - rabbitmq-network
+  #   depends_on:
+  #     - rabbitmq-node1
       
-  rabbitmq-node3:
-    image: rabbitmq:3.13.2-management
-    container_name: rabbitmq-node3
-    hostname: rabbitmq-node3
-    # command: rabbitmq-server --erlang-cookie=97c78681-3394-208f-9d04-b86cb68f9c60
-    entrypoint: /bin/bash -c "rabbitmq-server rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq-node3.pid && rabbitmqctl join_cluster rabbit@rabbitmq-node1"
-    ports:
-      - "5674:5672"
-      - "15674:15672"
-    volumes:
-      - ./rabbitmq_delayed_message_exchange-3.13.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez
-      - ./.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
-      - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
-    environment:
-      - RABBITMQ_DELAYED_MESSAGE_ENABLED=true
-      - RABBITMQ_DEFAULT_USER=admin
-      - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
-      - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
-#被废弃了  - RABBITMQ_ERLANG_COOKIE=97c78681-3394-208f-9d04-b86cb68f9c60 # 为了确保集群节点通信，需要设置相同的 erlang-cookie
-      - RABBITMQ_NODENAME=rabbit@rabbitmq-node3  # 节点名称
-      # - RABBITMQ_USE_LONGNAME=true #它用于告诉 RabbitMQ 是否使用长节点名称。
-    networks:
-      - rabbitmq-network
-    depends_on:
-      - rabbitmq-node1
+  # rabbitmq-node3:
+  #   image: rabbitmq:3.13.2-management
+  #   container_name: rabbitmq-node3
+  #   hostname: rabbitmq-node3
+  #   entrypoint: /bin/bash -c "rabbitmq-server rabbitmqctl wait /var/lib/rabbitmq/mnesia/rabbit@rabbitmq-node3.pid && rabbitmqctl join_cluster rabbit@rabbitmq-node1"
+  #   ports:
+  #     - "5674:5672"
+  #     - "15674:15672"
+  #   volumes:
+  #     - ./rabbitmq_delayed_message_exchange-3.13.0.ez:/plugins/rabbitmq_delayed_message_exchange-3.13.0.ez
+  #     - ./.erlang.cookie:/var/lib/rabbitmq/.erlang.cookie
+  #     - ./rabbitmq.conf:/etc/rabbitmq/rabbitmq.conf
+  #   environment:
+  #     - RABBITMQ_DELAYED_MESSAGE_ENABLED=true
+  #     - RABBITMQ_DEFAULT_USER=admin
+  #     - RABBITMQ_DEFAULT_PASS=66mIBXeUUOloL0tcFmnqJOllantFRedAMDvcpqP8
+  #     - RABBITMQ_PLUGINS=--offline rabbitmq_delayed_message_exchange
+  #     - RABBITMQ_NODENAME=rabbit@rabbitmq-node3
+  #   networks:
+  #     - rabbitmq-network
+  #   depends_on:
+  #     - rabbitmq-node1
+      
 networks:
   rabbitmq-network:
     driver: bridge
